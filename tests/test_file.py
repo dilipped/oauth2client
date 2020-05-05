@@ -276,18 +276,12 @@ class OAuth2ClientFileTests(unittest.TestCase):
         access_token = 'foo'
         user_agent = 'refresh_checker/1.0'
 
-        #credentials = client.AccessTokenCredentials(access_token, user_agent)
         credentials = 'dummy-string'
 
         storage = multiprocess_file_storage.MultiprocessFileStorage(
             FILENAME,
             credentials
         )
-        # credentials = storage.put(credentials)
-        # credentials = storage.get()
-        #
-        # self.assertIsNotNone(credentials)
-        # self.assertEquals('foo', credentials.access_token)
         storage.acquire_lock()
         storage.release_lock()
 
