@@ -106,8 +106,12 @@ def _create_file_if_needed(filename):
     if os.path.exists(filename):
         return False
     else:
+        old_umask = os.umask(0o177)
         # Equivalent to "touch".
-        open(filename, 'a+b').close()
+        try:
+            open(filename, 'a+b').close()
+        finally:
+            os.umask(old_umask)
         logger.info('Credential file {0} created'.format(filename))
         return True
 
